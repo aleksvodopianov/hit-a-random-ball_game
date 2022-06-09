@@ -21,7 +21,8 @@ let ctx = canvas.getContext('2d'),
     rightPressed = false,
     leftPressed = false,
     count = -1,
-    speed = 0;
+    speed = 0,
+    interval;
 
 function getCount() {
     count++;
@@ -118,23 +119,48 @@ function keyUpHandler(e) {
     }
 }
 
+function startByEnter(e) {
+    if(e.keyCode == 32) {
+        return interval = setInterval(draw, time);
+    }
+}
+
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 
-toRight.addEventListener("touchstart", () => {
+document.addEventListener("keydown", startByEnter, true);
+
+toRight.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     rightPressed = true;
 });
-toRight.addEventListener("touchend", () => {
+toRight.addEventListener("touchend", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     rightPressed = false;
 });
-toLeft.addEventListener("touchstart", () => {
+toLeft.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     leftPressed = true;
 });
-toLeft.addEventListener("touchend", () => {
+toLeft.addEventListener("touchend", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     leftPressed = false;
 });
 
-const interval = setInterval(draw, time);
+document.body.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    onnApp();
+}, { once: true });
+
+function onnApp() {
+    return interval = setInterval(draw, time);
+}
+// const interval = setInterval(draw, time);
 
 
 
