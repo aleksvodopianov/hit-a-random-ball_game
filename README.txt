@@ -1,1 +1,1 @@
-HTML5 game 
+2D game in pure JavaScript and HTML5
